@@ -1,24 +1,23 @@
 const loadPhones = async (searchText, dataLimit) => {
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
-    // console.log(url)
     const res = await fetch(url);
-    const data = await res.json();
+    const data = await res.json()
     displayPhones(data.data, dataLimit);
 }
 
 const displayPhones = (phones, dataLimit) => {
     const phonesContainer = document.getElementById('phones-container');
-    // phonesContainer.textContent = '';
+    phonesContainer.textContent = '';
     // display 10 phones only 
-    // console.log(phonesContainer)
-    // console.log(phones, dataLimit)
     const showAll = document.getElementById('show-all');
+    // console.log(dataLimit)
     if (dataLimit && phones.length > 10) {
         phones = phones.slice(0, 10);
+        // console.log(phones)
         showAll.classList.remove('d-none');
     }
     else {
-        showAll.classList.add('d-hidden');
+        showAll.classList.add('d-none');
     }
 
 
@@ -32,9 +31,10 @@ const displayPhones = (phones, dataLimit) => {
     }
     // display all phones
     phones.forEach(phone => {
+        // console.log(phone)
         const phoneDiv = document.createElement('div');
         phoneDiv.classList.add('col');
-        phonesContainer.innerHTML = `
+        phoneDiv.innerHTML = `
         <div class="card p-4">
             <img src="${phone.image}" class="card-img-top" alt="...">
             <div class="card-body">
@@ -53,7 +53,7 @@ const displayPhones = (phones, dataLimit) => {
 
 const processSearch = (dataLimit) => {
     toggleSpinner(true);
-    console.log(dataLimit)
+    // console.log(dataLimit)
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     loadPhones(searchText, dataLimit);
@@ -67,8 +67,9 @@ document.getElementById('btn-search').addEventListener('click', function () {
 
 // search input field enter key handler
 document.getElementById('search-field').addEventListener('keypress', function (e) {
+    const searchValue = document.getElementById('search-field').value;
     if (e.key === 'enter') {
-        processSearch(10);
+        processSearch(searchValue);
     }
 });
 
@@ -97,14 +98,14 @@ const loadPhoneDetails = async id => {
 }
 
 const displayPhoneDetails = phone => {
-    console.log(phone);
+    console.log(phone.mainFeatures.storage);
     const modalTitle = document.getElementById('phoneDetailModalLabel');
     modalTitle.innerText = phone.name;
     const phoneDetails = document.getElementById('phone-details');
-    console.log(phone.mainFeatures.sensors[0]);
+    // console.log(phone.mainFeatures.sensors[0]);
     phoneDetails.innerHTML = `
         <p>Release Date: ${phone.releaseDate}</p>
-        <p>Storage: ${phone.mainFeatures}</p>
+        <p>Storage: ${phone.mainFeatures.storage}</p>
         <p>Others: ${phone.others ? phone.others.Bluetooth : 'No Bluetooth Information'}</p>
         <p>Sensor: ${phone.mainFeatures.sensors ? phone.mainFeatures.sensors[0] : 'no sensor'}</p>
     `
