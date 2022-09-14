@@ -68,7 +68,7 @@ document.getElementById('btn-search').addEventListener('click', function () {
 // search input field enter key handler
 document.getElementById('search-field').addEventListener('keypress', function (e) {
     const searchValue = document.getElementById('search-field').value;
-    if (e.key === 'enter') {
+    if (e.key === 'Enter') {
         processSearch(searchValue);
     }
 });
@@ -98,7 +98,7 @@ const loadPhoneDetails = async id => {
 }
 
 const displayPhoneDetails = phone => {
-    console.log(phone.mainFeatures.storage);
+    // console.log(phone.mainFeatures.storage);
     const modalTitle = document.getElementById('phoneDetailModalLabel');
     modalTitle.innerText = phone.name;
     const phoneDetails = document.getElementById('phone-details');
