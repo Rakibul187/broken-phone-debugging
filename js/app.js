@@ -1,6 +1,6 @@
 const loadPhones = async (searchText, dataLimit) => {
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
-    console.log(url)
+    // console.log(url)
     const res = await fetch(url);
     const data = await res.json();
     displayPhones(data.data, dataLimit);
@@ -10,7 +10,8 @@ const displayPhones = (phones, dataLimit) => {
     const phonesContainer = document.getElementById('phones-container');
     // phonesContainer.textContent = '';
     // display 10 phones only 
-    console.log(phonesContainer)
+    // console.log(phonesContainer)
+    // console.log(phones, dataLimit)
     const showAll = document.getElementById('show-all');
     if (dataLimit && phones.length > 10) {
         phones = phones.slice(0, 10);
@@ -52,6 +53,7 @@ const displayPhones = (phones, dataLimit) => {
 
 const processSearch = (dataLimit) => {
     toggleSpinner(true);
+    console.log(dataLimit)
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     loadPhones(searchText, dataLimit);
@@ -87,7 +89,8 @@ document.getElementById('btn-show-all').addEventListener('click', function () {
 })
 
 const loadPhoneDetails = async id => {
-    const url = `www.openapi.programming-hero.com/api/phone/${id}`;
+    // const url = `www.openapi.programming-hero.com/api/phone/${id}`;
+    const url = `https://openapi.programming-hero.com/api/phone/${id}`;
     const res = await fetch(url);
     const data = await res.json();
     displayPhoneDetails(data.data);
